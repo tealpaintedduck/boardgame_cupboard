@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bgr</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+  <meta charset="UTF-8">
+  <title>BoardGame RCMNDR</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
+  <script src="app.js"></script>
+</head>
+<body ng-app="boardgameRecommender">
+  <ui-view></ui-view>
+  <script type="text/ng-template" id="/cupboard.html">
+    <div>
+      <div class="button-container">
+        <button ng-click="formIsOpen = !formIsOpen" ng-show="!formIsOpen">Add a game to your cupboard</button>
+      </div>
+      <form ng-show="formIsOpen" ng-submit="addGame(); formIsOpen = !formIsOpen">
+        <div>
+          <input type="text" ng-model="name" placeholder="title"></input>
+        </div>
+        <div>
+          <input type="text" ng-model="min_players" placeholder="min players"></input>
+        </div>
+        <div>
+          <input type="text" ng-model="max_players" placeholder="max players"></input>
+        </div>
+        <div>
+          <input type="text" ng-model="genre" placeholder="genre"></input>
+        </div>
+        <div>
+          <input type="text" ng-model="mechanics" placeholder="mechanics"></input>
+        </div>
+        <div class="button-container">
+          <button type="submit">Add</button>
+        </div>
+        <div class="button-container">
+          <button type="button" ng-click="clearForm(); formIsOpen = !formIsOpen">Cancel</button>
+        </div>
+      </form>
+    </div>
+    <div ng-repeat="game in games" class="card">
+      <div>{{ game.name }}</div>
+      <div>{{ game.min_players }} - {{ game.max_players }} players</div>
+      <div>Genre: {{ game.genre }}</div>
+      <div>Mechanics:
+        <ul>
+          <span ng-repeat="mechanic in game.mechanics">
+            <li>{{ mechanic }}</li>
+          </span>
+        </ul>
+      </div>
+    </div>
+  </script>
+  <script type="text/ng-template" id="/home.html">
+    <div class="button-container">
+      <a href="#/cupboard"><button>Look in your cupboard</button></a>
+    </div>
+    <div class="button-container">
+      <a href='#/'><button>Get recommendations</button></a>
+    </div
+  </script>
+</body>
+</html>

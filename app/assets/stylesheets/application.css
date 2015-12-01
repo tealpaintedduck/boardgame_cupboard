@@ -1,0 +1,61 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+
+body {
+  text-align : center;
+  font-family: avenir next;
+  font-size: 16px;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  padding: 5px;
+  background-color: #fff;
+  font-family: avenir next;
+  box-shadow: none;
+  border: 1px solid #000;
+  font-size: 16px;
+  min-width: 300px;
+}
+
+button:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+input {
+  padding: 5px 0;
+  min-width: 300px;
+  border: 1px #ececec solid;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.card {
+  max-width : 400px;
+  padding: 10px;
+  border: solid 1px #000000;
+  margin: 0 auto 10px;
+}
+
+.button-container {
+  /*padding-top: 5px;*/
+  padding-bottom: 10px;
+}
