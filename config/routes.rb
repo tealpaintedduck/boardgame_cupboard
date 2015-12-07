@@ -6,6 +6,12 @@ Rails.application.routes.draw do
   # root 'welcome#index'
   root to: 'application#angular'
 
+  resources :games, only: [:create, :index, :show], defaults: {format: 'json'} do
+    resources :genres
+  end
+
+  get '/cupboard' => 'games#index'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

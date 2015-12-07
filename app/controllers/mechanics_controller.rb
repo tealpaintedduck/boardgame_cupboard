@@ -1,0 +1,2 @@
+class MechanicsController < ApplicationController
+end

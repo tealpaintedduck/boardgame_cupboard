@@ -1,4 +1,4 @@
-angular.module('boardgameRecommender', ['ui.router'])
+angular.module('boardgameRecommender', ['ui.router', 'templates'])
 
 .config([
   '$stateProvider',
@@ -7,13 +7,18 @@ angular.module('boardgameRecommender', ['ui.router'])
     $stateProvider
       .state('home', {
         url: '/',
-        templateUrl: '/home.html',
+        templateUrl: 'home/_home.html',
         controller: 'HomeCtrl'
       })
       .state('cupboard', {
         url: '/cupboard',
-        templateUrl: '/cupboard.html',
-        controller: 'CupboardCtrl'
+        templateUrl: 'cupboard/_cupboard.html',
+        controller: 'CupboardCtrl',
+        resolve: {
+          gamesPromise: ['games', function(games) {
+            return games.getAll();
+          }]
+        }
       });
     $urlRouterProvider.otherwise('/');
   }])
@@ -23,17 +28,17 @@ angular.module('boardgameRecommender', ['ui.router'])
 
 .controller('CupboardCtrl', ['$scope', 'games', function($scope, games) {
   $scope.addGame = function() {
-    $scope.games.push({
-      name : $scope.name,
+    games.create({
+      title : $scope.title,
       min_players : $scope.min_players,
       max_players : $scope.max_players,
       genre : $scope.genre,
-      mechanics: $scope.mechanics.split(", ")
+      mechanics: $scope.mechanics
     })
     $scope.clearForm();
   }
   $scope.clearForm = function() {
-    $scope.name = ''
+    $scope.title = ''
     $scope.min_players = ''
     $scope.max_players = ''
     $scope.genre = ''
@@ -42,24 +47,37 @@ angular.module('boardgameRecommender', ['ui.router'])
   $scope.games = games.games;
 }])
 
-.factory('games', [function() {
+.factory('games', ['$http', function($http) {
   var o = {
     games: [
     {
-      name : "Carcassonne",
+      title : "Carcassonne",
       min_players : 2,
       max_players : 6,
       genre : "Family",
       mechanics: ["Area Control"]
     },
     {
-      name : "Pandemic",
+      title : "Pandemic",
       min_players : 2,
       max_players : 4,
       genre : "Family",
       mechanics: ["Co-op", "Hand Management", "Point to Point Movement"]
     }
   ]
-  };
+  }
+
+  o.getAll = function() {
+    return $http.get('/games.json').success(function(data) {
+      console.log(data)
+      angular.copy(data, o.games)
+    })
+  }
+
+  o.create = function(game) {
+    return $http.post('/games.json', game).success(function(data) {
+      o.games.push(data);
+    })
+  }
   return o;
 }])

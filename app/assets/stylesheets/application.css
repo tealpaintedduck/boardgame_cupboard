@@ -40,6 +40,10 @@ button:hover {
   color: #fff;
 }
 
+button:focus {
+  outline: none;
+}
+
 input {
   padding: 5px 0;
   min-width: 300px;
