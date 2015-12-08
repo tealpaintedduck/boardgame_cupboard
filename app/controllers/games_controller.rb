@@ -4,7 +4,7 @@ class GamesController < ApplicationController
   def index
     # @games = Game.all
     # render json: @games
-    respond_with Game.all
+    respond_with current_user.games
   end
 
   def create
@@ -19,6 +19,7 @@ class GamesController < ApplicationController
       mechanic = Mechanic.find_or_create_by(name: m)
       mechanic.games << game
     end
+    current_user.games << game
     respond_with game
   end
 

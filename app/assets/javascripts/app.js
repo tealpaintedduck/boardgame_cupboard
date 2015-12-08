@@ -43,7 +43,8 @@ angular.module('boardgameRecommender', ['ui.router', 'templates', 'Devise'])
     $urlRouterProvider.otherwise('/');
   }])
 
-.controller('HomeCtrl', ['$scope', function($scope) {
+.controller('HomeCtrl', ['$scope', 'Auth', function($scope, Auth) {
+  $scope.signedIn = Auth.isAuthenticated;
 }])
 
 .controller('CupboardCtrl', ['$scope', 'games', function($scope, games) {
