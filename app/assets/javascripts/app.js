@@ -1,4 +1,4 @@
-angular.module('boardgameRecommender', ['ui.router', 'templates'])
+angular.module('boardgameRecommender', ['ui.router', 'templates', 'Devise'])
 
 .config([
   '$stateProvider',
@@ -19,7 +19,27 @@ angular.module('boardgameRecommender', ['ui.router', 'templates'])
             return games.getAll();
           }]
         }
-      });
+      })
+      .state('login', {
+        url: '/login',
+        templateUrl: 'auth/_login.html',
+        controller: 'AuthCtrl',
+        onEnter: ['$state', 'Auth', function($state, Auth) {
+          Auth.currentUser().then(function() {
+            $state.go('home');
+          })
+        }]
+      })
+      .state('register', {
+        url: '/register',
+        templateUrl: 'auth/_register.html',
+        controller: 'AuthCtrl',
+        onEnter: ['$state', 'Auth', function($state, Auth) {
+          Auth.currentUser().then(function() {
+            $state.go('home');
+          })
+        }]
+      })
     $urlRouterProvider.otherwise('/');
   }])
 
@@ -45,6 +65,37 @@ angular.module('boardgameRecommender', ['ui.router', 'templates'])
     $scope.mechanics = ''
   }
   $scope.games = games.games;
+}])
+
+.controller('NavCtrl', ['$scope', 'Auth', function($scope, Auth) {
+  $scope.signedIn = Auth.isAuthenticated;
+  $scope.logout = Auth.logout;
+  Auth.currentUser().then(function(user) {
+    console.log("esrghdjtcvh")
+    $scope.user = user;
+  });
+  $scope.$on('devise:new-registration', function(e, user) {
+    $scope.user = user;
+  });
+  $scope.$on('devise:login', function(e, user) {
+    $scope.user = user;
+  });
+  $scope.$on('devise:logout', function(e, user) {
+    $scope.user = {};
+  });
+}])
+
+.controller('AuthCtrl', ['$scope', '$state', 'Auth', function($scope, $state, Auth) {
+  $scope.login = function() {
+    Auth.login($scope.user).then(function() {
+      $state.go('home');
+    });
+  };
+  $scope.register = function() {
+    Auth.register($scope.user).then(function() {
+      $state.go('home');
+    })
+  }
 }])
 
 .factory('games', ['$http', function($http) {
