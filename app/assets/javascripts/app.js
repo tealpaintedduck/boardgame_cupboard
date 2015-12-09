@@ -66,6 +66,9 @@ angular.module('boardgameRecommender', ['ui.router', 'templates', 'Devise'])
     $scope.mechanics = ''
   }
   $scope.games = games.games;
+  $scope.isEmpty = function(obj) {
+    return Object.keys(obj).length;
+  }
 }])
 
 .controller('NavCtrl', ['$scope', 'Auth', function($scope, Auth) {
