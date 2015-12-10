@@ -5,6 +5,7 @@ gem 'angular-rails-templates'
 gem 'devise'
 gem 'factory_girl_rails'
 gem 'jbuilder', '~> 2.0'
+gem 'nokogiri'
 gem 'pg'
 gem 'rails', '4.2.4'
 gem 'responders', '~> 2.0'
@@ -31,5 +32,7 @@ group :test do
   gem 'database_cleaner'
   gem 'poltergeist'
   gem 'rspec-rails'
+  gem 'vcr'
+  gem 'webmock'
 end
 

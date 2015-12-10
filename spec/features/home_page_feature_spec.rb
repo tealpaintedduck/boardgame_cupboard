@@ -23,6 +23,7 @@ feature 'home page' do
 
     before(:each) do
       user = build :user
+      visit "/"
       sign_up_as(user)
     end
     scenario 'Home page has log out', js: true do

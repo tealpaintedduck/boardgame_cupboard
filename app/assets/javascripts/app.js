@@ -75,7 +75,6 @@ angular.module('boardgameRecommender', ['ui.router', 'templates', 'Devise'])
   $scope.signedIn = Auth.isAuthenticated;
   $scope.logout = Auth.logout;
   Auth.currentUser().then(function(user) {
-    console.log("esrghdjtcvh")
     $scope.user = user;
   });
   $scope.$on('devise:new-registration', function(e, user) {
