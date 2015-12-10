@@ -32,7 +32,6 @@ feature 'cupboard', js: true do
       click_button "Look in your cupboard"
       click_button "Add a game to your cupboard"
       fill_in "title", with: "Dominion"
-      # Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/search?search=carcassonne&exact=1"))
       Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/search?exact=1&search=Dominion"))
       Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/boardgame/822"))
       click_button "Add"
@@ -54,5 +53,20 @@ feature 'cupboard', js: true do
     click_button "Cancel"
     click_button "Add a game to your cupboard"
     expect(page).not_to have_content "Carcassonne"
+  end
+
+  scenario "user cannot add same game twice", js: true do
+    VCR.use_cassette 'bgg_api_response_dom' do
+      click_button "Look in your cupboard"
+      click_button "Add a game to your cupboard"
+      fill_in "title", with: "Dominion"
+      Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/search?exact=1&search=Dominion"))
+      Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/boardgame/822"))
+      click_button "Add"
+      click_button "Add a game to your cupboard"
+      fill_in "title", with: "Dominion"
+      click_button "Add"
+    end
+    expect(page).to have_selector('div.card', count: 1)
   end
 end

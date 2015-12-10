@@ -55,6 +55,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-angular (0.2.2)
+      capybara (>= 2.5.0)
     cliver (0.3.2)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
@@ -204,6 +206,7 @@ DEPENDENCIES
   angular_rails_csrf
   byebug
   capybara
+  capybara-angular
   database_cleaner
   devise
   factory_girl_rails

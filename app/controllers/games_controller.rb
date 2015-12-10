@@ -12,8 +12,8 @@ class GamesController < ApplicationController
     if !game
       game = make_game(params[:title])
     end
-    current_user.games << game
-    respond_with game
+      current_user.games << game
+      respond_with game
   end
 
   def show

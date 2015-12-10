@@ -29,6 +29,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'capybara-angular'
   gem 'database_cleaner'
   gem 'poltergeist'
   gem 'rspec-rails'

@@ -48,22 +48,26 @@ angular.module('boardgameRecommender', ['ui.router', 'templates', 'Devise'])
 }])
 
 .controller('CupboardCtrl', ['$scope', 'games', function($scope, games) {
+  $scope.checkDuplicateGame = function() {
+    for (var i = games.games.length - 1; i >= 0; i--) {
+      console.log("hererere")
+       if(games.games[i].title.toLowerCase() == $scope.title.toLowerCase()) {
+        return true
+       }
+    };
+    return false
+
+  }
   $scope.addGame = function() {
-    games.create({
-      title : $scope.title,
-      min_players : $scope.min_players,
-      max_players : $scope.max_players,
-      genre : $scope.genre,
-      mechanics: $scope.mechanics
-    })
+    if (!$scope.checkDuplicateGame()) {
+      games.create({
+        title : $scope.title,
+      })
+    }
     $scope.clearForm();
   }
   $scope.clearForm = function() {
     $scope.title = ''
-    $scope.min_players = ''
-    $scope.max_players = ''
-    $scope.genre = ''
-    $scope.mechanics = ''
   }
   $scope.games = games.games;
   $scope.isEmpty = function(obj) {
@@ -104,26 +108,11 @@ angular.module('boardgameRecommender', ['ui.router', 'templates', 'Devise'])
 .factory('games', ['$http', function($http) {
   var o = {
     games: [
-    {
-      title : "Carcassonne",
-      min_players : 2,
-      max_players : 6,
-      genre : "Family",
-      mechanics: ["Area Control"]
-    },
-    {
-      title : "Pandemic",
-      min_players : 2,
-      max_players : 4,
-      genre : "Family",
-      mechanics: ["Co-op", "Hand Management", "Point to Point Movement"]
-    }
   ]
   }
 
   o.getAll = function() {
     return $http.get('/games.json').success(function(data) {
-      console.log(data)
       angular.copy(data, o.games)
     })
   }

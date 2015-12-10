@@ -9,6 +9,7 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/poltergeist'
+include Capybara::Angular::DSL
 Capybara.javascript_driver = :poltergeist
 require 'support/database_cleaner'
 require 'factory_girl_rails'
