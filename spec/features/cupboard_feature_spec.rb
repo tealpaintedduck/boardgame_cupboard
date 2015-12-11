@@ -69,4 +69,17 @@ feature 'cupboard', js: true do
     end
     expect(page).to have_selector('div.card', count: 1)
   end
+
+  scenario "user can import game collection from bgg", js: true do
+    VCR.use_cassette 'bgg_api_response_tealpaintedduck' do
+      click_button "Look in your cupboard"
+      click_button "Import from BGG"
+      Net::HTTP.get_response(URI("https://www.boardgamegeek.com/xmlapi/collection/tealpaintedduck?own=1"))
+      Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/boardgame/124708,12333?exact=1"))
+      fill_in "BGG username", with: "tealpaintedduck"
+      click_button "Add"
+    end
+    expect(page).to have_content "Twilight Struggle"
+    expect(page).to have_content "Mice and Mystics"
+  end
 end

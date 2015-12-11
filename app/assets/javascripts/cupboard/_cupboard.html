@@ -1,8 +1,9 @@
 <div>
   <div class="button-container">
-    <button ng-click="formIsOpen = !formIsOpen" ng-show="!formIsOpen">Add a game to your cupboard</button>
+    <button ng-click="gameFormIsOpen = !gameFormIsOpen" ng-show="!gameFormIsOpen">Add a game to your cupboard</button>
+    <button ng-click="importFormIsOpen = !importFormIsOpen" ng-show="!gameFormIsOpen">Import from BGG</button>
   </div>
-  <form ng-show="formIsOpen" ng-submit="addGame(); formIsOpen = !formIsOpen">
+  <form ng-show="gameFormIsOpen" ng-submit="addGame(); gameFormIsOpen = !gameFormIsOpen">
     <div>
       <input type="text" ng-model="title" placeholder="title"></input>
     </div>
@@ -10,7 +11,15 @@
       <button type="submit">Add</button>
     </div>
     <div class="button-container">
-      <button type="button" ng-click="clearForm(); formIsOpen = !formIsOpen">Cancel</button>
+      <button type="button" ng-click="clearForm(); gameFormIsOpen = !gameFormIsOpen">Cancel</button>
+    </div>
+  </form>
+  <form ng-show="importFormIsOpen" ng-submit="importCollection(); importFormIsOpen = !importFormIsOpen">
+    <div>
+      <input type="text" ng-model="bggUser" placeholder="BGG username"></input>
+    </div>
+    <div class="button-container">
+      <button type="submit">Add</button>
     </div>
   </form>
 </div>

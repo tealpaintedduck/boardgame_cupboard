@@ -50,7 +50,6 @@ angular.module('boardgameRecommender', ['ui.router', 'templates', 'Devise'])
 .controller('CupboardCtrl', ['$scope', 'games', function($scope, games) {
   $scope.checkDuplicateGame = function() {
     for (var i = games.games.length - 1; i >= 0; i--) {
-      console.log("hererere")
        if(games.games[i].title.toLowerCase() == $scope.title.toLowerCase()) {
         return true
        }
@@ -65,6 +64,11 @@ angular.module('boardgameRecommender', ['ui.router', 'templates', 'Devise'])
       })
     }
     $scope.clearForm();
+  }
+  $scope.importCollection = function() {
+    games.create({
+        bggUser : $scope.bggUser,
+      })
   }
   $scope.clearForm = function() {
     $scope.title = ''
@@ -119,7 +123,11 @@ angular.module('boardgameRecommender', ['ui.router', 'templates', 'Devise'])
 
   o.create = function(game) {
     return $http.post('/games.json', game).success(function(data) {
-      o.games.push(data);
+      if (data instanceof Array) {
+        [].push.apply(o.games, data);
+      } else {
+        o.games.push(data);
+      }
     })
   }
   return o;

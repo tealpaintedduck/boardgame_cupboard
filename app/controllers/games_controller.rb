@@ -8,12 +8,17 @@ class GamesController < ApplicationController
   end
 
   def create
-    game = Game.where('lower(title) = ?', params[:title].downcase).first
-    if !game
-      game = make_game(params[:title])
-    end
+    if params[:bggUser]
+      get_collection(params[:bggUser])
+      redirect_to games_path
+    else
+      game = Game.where('lower(title) = ?', params[:title].downcase).first
+      if !game
+        game = make_game(params[:title])
+      end
       current_user.games << game
       respond_with game
+    end
   end
 
   def show
