@@ -47,7 +47,7 @@ angular.module('boardgameRecommender', ['ui.router', 'templates', 'Devise'])
   $scope.signedIn = Auth.isAuthenticated;
 }])
 
-.controller('CupboardCtrl', ['$scope', 'games', function($scope, games) {
+.controller('CupboardCtrl', ['$scope', '$state', 'games', function($scope, $state, games) {
   $scope.checkDuplicateGame = function() {
     for (var i = games.games.length - 1; i >= 0; i--) {
        if(games.games[i].title.toLowerCase() == $scope.title.toLowerCase()) {
@@ -63,6 +63,7 @@ angular.module('boardgameRecommender', ['ui.router', 'templates', 'Devise'])
         title : $scope.title,
       })
     }
+
     $scope.clearForm();
   }
   $scope.importCollection = function() {
@@ -109,7 +110,7 @@ angular.module('boardgameRecommender', ['ui.router', 'templates', 'Devise'])
   }
 }])
 
-.factory('games', ['$http', function($http) {
+.factory('games', ['$http', '$state', function($http, $state) {
   var o = {
     games: [
   ]
@@ -124,6 +125,14 @@ angular.module('boardgameRecommender', ['ui.router', 'templates', 'Devise'])
   o.create = function(game) {
     return $http.post('/games.json', game).success(function(data) {
       if (data instanceof Array) {
+        for (var x = data.length - 1; x >= 0; x--) {
+          for (var i = o.games.length - 1; i >= 0; i--) {
+            if(o.games[i].title == data[x].title) {
+              data.splice(x, 1)
+            }
+          };
+        };
+        var r = o.games.length;
         [].push.apply(o.games, data);
       } else {
         o.games.push(data);

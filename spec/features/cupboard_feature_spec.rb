@@ -82,4 +82,22 @@ feature 'cupboard', js: true do
     expect(page).to have_content "Twilight Struggle"
     expect(page).to have_content "Mice and Mystics"
   end
+
+  scenario "game only shows once", js: true do
+    VCR.use_cassette 'bgg_api_response_manual_and_import' do
+      click_button "Look in your cupboard"
+      click_button "Add a game to your cupboard"
+      fill_in "title", with: "Twilight Struggle"
+      Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/search?exact=1&search=Twilight%20Struggle"))
+      Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/boardgame/12333"))
+      click_button "Add"
+      click_button "Import from BGG"
+      Net::HTTP.get_response(URI("https://www.boardgamegeek.com/xmlapi/collection/tealpaintedduck?own=1"))
+      Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/boardgame/124708,12333?exact=1"))
+      fill_in "BGG username", with: "tealpaintedduck"
+      click_button "Add"
+    end
+    expect(page).to have_content("Twilight Struggle", count: 1)
+    expect(page).to have_content "Mice and Mystics"
+  end
 end
