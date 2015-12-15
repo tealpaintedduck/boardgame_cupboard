@@ -14,7 +14,7 @@ feature 'cupboard', js: true do
   end
 
   scenario "user can add new game with bgg API", js: true do
-    VCR.use_cassette 'bgg_api_response_carc' do
+    VCR.use_cassette 'bgg_api_response_carc', allow_playback_repeats: true do
       click_button "Look in your cupboard"
       click_button "Add a game to your cupboard"
       fill_in "title", with: "Carcassonne"
@@ -33,7 +33,7 @@ feature 'cupboard', js: true do
       click_button "Add a game to your cupboard"
       fill_in "title", with: "Dominion"
       Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/search?exact=1&search=Dominion"))
-      Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/boardgame/822"))
+      Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/boardgame/36218"))
       click_button "Add"
     click_on "Log Out"
       user_2 = build :user_2
@@ -61,7 +61,7 @@ feature 'cupboard', js: true do
       click_button "Add a game to your cupboard"
       fill_in "title", with: "Dominion"
       Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/search?exact=1&search=Dominion"))
-      Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/boardgame/822"))
+      Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/boardgame/36218"))
       click_button "Add"
       click_button "Add a game to your cupboard"
       fill_in "title", with: "Dominion"
@@ -71,11 +71,11 @@ feature 'cupboard', js: true do
   end
 
   scenario "user can import game collection from bgg", js: true do
-    VCR.use_cassette 'bgg_api_response_tealpaintedduck' do
-      click_button "Look in your cupboard"
-      click_button "Import from BGG"
+    VCR.use_cassette 'bgg_api_response_tealpaintedduck', allow_playback_repeats: true do
       Net::HTTP.get_response(URI("https://www.boardgamegeek.com/xmlapi/collection/tealpaintedduck?own=1"))
       Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/boardgame/124708,12333?exact=1"))
+      click_button "Look in your cupboard"
+      click_button "Import from BGG"
       fill_in "BGG username", with: "tealpaintedduck"
       click_button "Add"
     end
@@ -84,7 +84,7 @@ feature 'cupboard', js: true do
   end
 
   scenario "game only shows once", js: true do
-    VCR.use_cassette 'bgg_api_response_manual_and_import' do
+    VCR.use_cassette 'bgg_api_response_manual_and_import', allow_playback_repeats: true do
       click_button "Look in your cupboard"
       click_button "Add a game to your cupboard"
       fill_in "title", with: "Twilight Struggle"

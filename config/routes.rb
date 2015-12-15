@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   end
 
   get '/cupboard' => 'games#index'
+  get '/recommendations' => 'games#recommend'
+  get '/genres' => 'genres#index'
+  get '/mechanics' => 'mechanics#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

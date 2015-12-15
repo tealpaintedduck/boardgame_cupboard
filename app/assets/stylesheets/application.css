@@ -44,6 +44,16 @@ button:focus {
   outline: none;
 }
 
+button.filter {
+  min-width: 0px;
+  margin: 5px 5px;
+}
+
+button.active {
+  background-color: #000;
+  color: #fff;
+}
+
 input {
   padding: 5px 0;
   min-width: 300px;

@@ -41,7 +41,7 @@ module ApplicationHelper
       game_ids << node.value
     end
     game_ids = game_ids.join(",")
-    games_doc = Nokogiri::XML(open("http://www.boardgamegeek.com/xmlapi/boardgame/#{game_ids}&exact=1"))
+    games_doc = Nokogiri::XML(open("http://www.boardgamegeek.com/xmlapi/boardgame/#{game_ids}?exact=1"))
     game_nodes = games_doc.xpath('//boardgames/boardgame')
     game_nodes.each do | g |
       min_players, max_players, title, genre_nodes, mechanic_nodes = search(g)

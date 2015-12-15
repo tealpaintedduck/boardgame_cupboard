@@ -1,0 +1,70 @@
+require 'rails_helper'
+
+feature 'recommendation page', js: true do
+  context 'when database has games', js: true do
+    before(:each) do
+      visit "/"
+      user = build(:user)
+      sign_up_as(user)
+      VCR.use_cassette 'bgg_api_response_tealpaintedduck', allow_playback_repeats: true  do
+        click_button "Look in your cupboard"
+        click_button "Import from BGG"
+        Net::HTTP.get_response(URI("https://www.boardgamegeek.com/xmlapi/collection/tealpaintedduck?own=1"))
+        Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/boardgame/124708,12333?exact=1"))
+        fill_in "BGG username", with: "tealpaintedduck"
+        click_button "Add"
+      end
+    end
+    scenario 'has options to filter', js: true do
+      visit '/'
+      click_button 'Get recommendations'
+      expect(page).to have_content "Select genre"
+      expect(page).to have_content "Select mechanic"
+    end
+
+    scenario 'starts with no games', js:true do
+      visit '/'
+      click_button 'Get recommendations'
+      expect(page).not_to have_content("Carcassonne")
+      expect(page).not_to have_content("Twilight Struggle")
+    end
+
+    scenario 'can filter by genre', js: true do
+      visit '/'
+      click_link "Log Out"
+      user_2 = build(:user_2)
+      sign_up_as(user_2)
+      click_button 'Get recommendations'
+      click_button 'Select genre'
+      expect(page).to have_css('button.filter', count: 3)
+      click_button 'Thematic Games'
+      expect(page).to have_content "Mice and Mystics"
+      expect(page).not_to have_content "Twilight Struggle"
+    end
+
+    scenario 'can filter by mechanic', js: true do
+      visit '/'
+      click_link "Log Out"
+      user_2 = build(:user_2)
+      sign_up_as(user_2)
+      click_button 'Get recommendations'
+      click_button 'Select mechanic'
+      expect(page).to have_css('button.filter', count: 10)
+      click_button 'Area Movement'
+      expect(page).to have_content "Mice and Mystics"
+      expect(page).not_to have_content "Twilight Struggle"
+    end
+  end
+
+  context 'when database has no games' do
+
+    scenario 'has no genre options', js: true do
+      visit "/"
+      user = build(:user)
+      sign_up_as(user)
+      click_button 'Get recommendations'
+      click_button 'Select genre'
+      expect(page).not_to have_css('button.filter')
+    end
+  end
+end

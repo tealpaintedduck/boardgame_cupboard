@@ -40,6 +40,22 @@ angular.module('boardgameRecommender', ['ui.router', 'templates', 'Devise'])
           })
         }]
       })
+      .state('recommendations', {
+        url: '/recommendations',
+        templateUrl: 'recommendations/_recommendations.html',
+        controller: 'RecCtrl',
+        resolve: {
+          recommendationsPromise: ['games', function(games) {
+            return games.getRecommendations();
+          }],
+          genresPromise: ['genres', function(genres) {
+            return genres.getAll();
+          }],
+          mechanicsPromise: ['mechanics', function(mechanics) {
+            return mechanics.getAll();
+          }]
+        }
+      })
     $urlRouterProvider.otherwise('/');
   }])
 
@@ -110,15 +126,87 @@ angular.module('boardgameRecommender', ['ui.router', 'templates', 'Devise'])
   }
 }])
 
+.controller('RecCtrl', ['$scope', 'Auth', 'games', 'genres', 'mechanics', function($scope, Auth, games, genres, mechanics) {
+  $scope.games = games.recommendations
+  $scope.genres = genres.genres
+  $scope.mechanics = mechanics.mechanics
+  $scope.genreCriteria = []
+  $scope.mechanicCriteria = []
+  var called = false
+
+  $scope.toggleCriteria = function(array, item) {
+    if (array.indexOf(item) != -1) {
+      removeFromCriteria(array, item)
+    } else {
+      addToCriteria(array, item)
+    }
+  }
+  addToCriteria = function(array, item) {
+    array.push(item)
+    console.log(array)
+  }
+  removeFromCriteria = function(array, item) {
+    var i = array.indexOf(item);
+    array.splice(i, 1)
+    console.log(array)
+  }
+
+  $scope.selectedCriteria = function(game) {
+    for (var i = game.genres.length - 1; i >= 0; i--) {
+      if ($scope.genreCriteria.indexOf(game.genres[i].name) != -1) {
+        return true;
+      }
+    };
+    for (var i = game.mechanics.length - 1; i >= 0; i--) {
+      if ($scope.mechanicCriteria.indexOf(game.mechanics[i].name) != -1) {
+        return true;
+      }
+    }
+  }
+}])
+
+.factory('genres', ['$http', function($http) {
+  var o = {
+    genres: []
+  }
+
+  o.getAll = function() {
+    return $http.get('/genres.json').success(function(data) {
+      angular.copy(data, o.genres)
+    })
+  }
+  return o;
+}])
+
+.factory('mechanics', ['$http', function($http) {
+  var o = {
+    mechanics: []
+  }
+
+  o.getAll = function() {
+    return $http.get('/mechanics.json').success(function(data) {
+      angular.copy(data, o.mechanics)
+    })
+  }
+  return o;
+}])
+
 .factory('games', ['$http', '$state', function($http, $state) {
   var o = {
-    games: [
-  ]
+    games: [],
+    recommendations: [
+      {title: "blah"}]
   }
 
   o.getAll = function() {
     return $http.get('/games.json').success(function(data) {
       angular.copy(data, o.games)
+    })
+  }
+
+  o.getRecommendations = function() {
+    return $http.get('/recommendations.json').success(function(data) {
+      angular.copy(data, o.recommendations)
     })
   }
 

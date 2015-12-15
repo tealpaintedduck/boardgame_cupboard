@@ -21,6 +21,15 @@ class GamesController < ApplicationController
     end
   end
 
+  def recommend
+    if current_user
+      @games  = Game.all - current_user.games
+      respond_with @games
+    else
+      respond_with Game.all
+    end
+  end
+
   def show
     respond_with Game.find(params[:id])
   end

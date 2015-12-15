@@ -1,0 +1,29 @@
+<div>
+  <div>
+    <button ng-click="showGenres = !showGenres">Select genre</button>
+    <button ng-click="showMechanics = !showMechanics">Select mechanic</button>
+  </div>
+  <div>
+    <button ng-class="{'filter': !isActive, 'filter active': isActive}" ng-show="showGenres" ng-repeat="genre in genres" ng-click="isActive = !isActive; toggleCriteria(genreCriteria, genre.name)">
+      {{ genre.name }}
+    </button>
+  </div>
+  <div>
+    <button class="filter" ng-class="{'filter': !isActive, 'filter active': isActive}" ng-show="showMechanics" ng-repeat="mechanic in mechanics" ng-click="isActive = !isActive; toggleCriteria(mechanicCriteria, mechanic.name)">
+      {{ mechanic.name }}
+    </button>
+  </div>
+  <div ng-repeat="game in games | filter:selectedCriteria" class="card">
+    <div>{{ game.title }}</div>
+    <div>Genres:
+      <div ng-repeat="genre in game.genres">
+        {{ genre.name }}
+      </div>
+    </div>
+    <div>Mechanics:
+      <div ng-repeat="mechanic in game.mechanics">
+        {{ mechanic.name }}
+      </div>
+    </div>
+  </div>
+</div>
