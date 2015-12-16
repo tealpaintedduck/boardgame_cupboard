@@ -21,10 +21,10 @@ feature 'cupboard', js: true do
       click_button "Add"
       Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/search?exact=1&search=Carcassonne"))
       Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/boardgame/822"))
+      expect(page).not_to have_content "Your cupboard is bare!"
+      expect(page).to have_content "Carcassonne"
+      expect(page).to have_content "2 - 5 players"
     end
-    expect(page).not_to have_content "Your cupboard is bare!"
-    expect(page).to have_content "Carcassonne"
-    expect(page).to have_content "2 - 5 players"
   end
 
   scenario "user can add game that exists in database without api being called", js:true do
@@ -35,15 +35,15 @@ feature 'cupboard', js: true do
       Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/search?exact=1&search=Dominion"))
       Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/boardgame/36218"))
       click_button "Add"
-    click_on "Log Out"
+      click_on "Log Out"
       user_2 = build :user_2
       sign_up_as(user_2)
       click_button "Look in your cupboard"
       click_button "Add a game to your cupboard"
       fill_in "title", with: "Dominion"
       click_button "Add"
+      expect(page).to have_content "Dominion"
     end
-    expect(page).to have_content "Dominion"
   end
 
   scenario "user can fill in form, cancel and form will empty", js: true do
@@ -66,8 +66,8 @@ feature 'cupboard', js: true do
       click_button "Add a game to your cupboard"
       fill_in "title", with: "Dominion"
       click_button "Add"
+      expect(page).to have_selector('div.card', count: 1)
     end
-    expect(page).to have_selector('div.card', count: 1)
   end
 
   scenario "user can import game collection from bgg", js: true do
@@ -78,9 +78,9 @@ feature 'cupboard', js: true do
       click_button "Import from BGG"
       fill_in "BGG username", with: "tealpaintedduck"
       click_button "Add"
+      expect(page).to have_content "Twilight Struggle"
+      expect(page).to have_content "Mice and Mystics"
     end
-    expect(page).to have_content "Twilight Struggle"
-    expect(page).to have_content "Mice and Mystics"
   end
 
   scenario "game only shows once", js: true do
@@ -96,8 +96,8 @@ feature 'cupboard', js: true do
       Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/boardgame/124708,12333?exact=1"))
       fill_in "BGG username", with: "tealpaintedduck"
       click_button "Add"
+      expect(page).to have_content("Twilight Struggle", count: 1)
+      expect(page).to have_content "Mice and Mystics"
     end
-    expect(page).to have_content("Twilight Struggle", count: 1)
-    expect(page).to have_content "Mice and Mystics"
   end
 end

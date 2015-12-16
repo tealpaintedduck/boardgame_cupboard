@@ -13,6 +13,7 @@ feature 'recommendation page', js: true do
         Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/boardgame/124708,12333?exact=1"))
         fill_in "BGG username", with: "tealpaintedduck"
         click_button "Add"
+        sleep 2
       end
     end
     scenario 'has options to filter', js: true do
