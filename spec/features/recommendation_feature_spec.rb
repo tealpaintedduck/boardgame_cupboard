@@ -55,6 +55,17 @@ feature 'recommendation page', js: true do
       expect(page).to have_content "Mice and Mystics"
       expect(page).not_to have_content "Twilight Struggle"
     end
+
+    scenario 'can filter by player number', js: true do
+      visit '/'
+      click_link "Log Out"
+      user_2 = build(:user_2)
+      sign_up_as(user_2)
+      click_button 'Get recommendations'
+      select 3, :from => "players"
+      expect(page).to have_content "Mice and Mystics"
+      expect(page).not_to have_content "Twilight Struggle"
+    end
   end
 
   context 'when database has no games' do

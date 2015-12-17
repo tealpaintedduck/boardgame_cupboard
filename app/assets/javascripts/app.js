@@ -132,7 +132,8 @@ angular.module('boardgameRecommender', ['ui.router', 'templates', 'Devise'])
   $scope.mechanics = mechanics.mechanics
   $scope.genreCriteria = []
   $scope.mechanicCriteria = []
-  var called = false
+  $scope.playerCriteria = 0
+  $scope.players = [1,2,3,4,5,6,7,8,9]
 
   $scope.toggleCriteria = function(array, item) {
     if (array.indexOf(item) != -1) {
@@ -143,26 +144,46 @@ angular.module('boardgameRecommender', ['ui.router', 'templates', 'Devise'])
   }
   addToCriteria = function(array, item) {
     array.push(item)
-    console.log(array)
   }
   removeFromCriteria = function(array, item) {
     var i = array.indexOf(item);
     array.splice(i, 1)
-    console.log(array)
   }
 
   $scope.selectedCriteria = function(game) {
-    for (var i = game.genres.length - 1; i >= 0; i--) {
-      if ($scope.genreCriteria.indexOf(game.genres[i].name) != -1) {
-        return true;
-      }
-    };
-    for (var i = game.mechanics.length - 1; i >= 0; i--) {
-      if ($scope.mechanicCriteria.indexOf(game.mechanics[i].name) != -1) {
-        return true;
-      }
+    if (!hasAnyCriteria()) {
+      return false;
+    } else {
+      for (var i = game.genres.length - 1; i >= 0; i--) {
+        for (var m = game.mechanics.length - 1; m >= 0; m--) {
+          if (meetsCriteriaRequirements($scope.genreCriteria, game.genres[i].name) && meetsCriteriaRequirements($scope.mechanicCriteria, game.mechanics[m].name) && (playersWithinRange(game) || !$scope.playerCriteria)) {
+            return true;
+          }
+        };
+      };
     }
   }
+
+  meetsCriteriaRequirements = function(criteriaArray, item) {
+    return (includedInCriteria(criteriaArray, item) || hasNoCriteria(criteriaArray))
+  }
+
+  includedInCriteria = function(criteriaArray, item) {
+    return (criteriaArray.indexOf(item) != -1);
+  }
+
+  hasNoCriteria = function(criteriaArray) {
+    return (criteriaArray.length < 1);
+  }
+
+  hasAnyCriteria = function() {
+    return ($scope.genreCriteria.length > 0 || $scope.mechanicCriteria.length > 0 || $scope.playerCriteria != 0 )
+  }
+
+  playersWithinRange = function(game) {
+    return ($scope.playerCriteria >= game.min_players && $scope.playerCriteria <= game.max_players)
+  }
+
 }])
 
 .factory('genres', ['$http', function($http) {
