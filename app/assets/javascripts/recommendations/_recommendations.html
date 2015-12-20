@@ -1,16 +1,19 @@
 <div>
   <div>
-    <button ng-click="showGenres = !showGenres">Select genre</button>
-    <button ng-click="showMechanics = !showMechanics">Select mechanic</button>
-    <select id="players" ng-options="player for player in players" ng-model="playerCriteria">
+    <select class="category" id="players" ng-options="player for player in players" ng-model="playerCriteria">
       <option value="" disabled selected>Select players</option>
     </select>
+  </div>
+  <div>
+    <button class="category" ng-click="showGenres = !showGenres">Select genre</button>
   </div>
   <div>
     <button ng-class="{'filter': !isActive, 'filter active': isActive}" ng-show="showGenres" ng-repeat="genre in genres" ng-click="isActive = !isActive; toggleCriteria(genreCriteria, genre.name)">
       {{ genre.name }}
     </button>
   </div>
+  <div>
+    <button class="category" ng-click="showMechanics = !showMechanics">Select mechanic</button>
   <div>
     <button ng-class="{'filter': !isActive, 'filter active': isActive}" ng-show="showMechanics" ng-repeat="mechanic in mechanics" ng-click="isActive = !isActive; toggleCriteria(mechanicCriteria, mechanic.name)">
       {{ mechanic.name }}

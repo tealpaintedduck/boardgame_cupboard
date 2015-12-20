@@ -1,8 +1,10 @@
 <nav ng-controller="NavCtrl">
-  <ul class="">
-    <li><a href="#/home">Home</a></li>
-    <li ng-hide="signedIn()"><a href="#/login">Log In</a></li>
-    <li ng-hide="signedIn()"><a href="#/register">Register</a></li>
-    <li ng-show="signedIn()"><a href="#" ng-click="logout()">Log Out</a></li>
+  <ul>
+    <div class="branding"><li class="nav-button"><a class="brand" href="#/home">Home</a></li></div>
+    <div class="user_bar">
+      <li class="nav-button" ng-hide="signedIn()"><a href="#/login">Log In</a></li>
+      <li class="nav-button" ng-hide="signedIn()"><a href="#/register">Register</a></li>
+      <li class="nav-button" ng-show="signedIn()"><a href="#" ng-click="logout()">Log Out</a></li>
+    </div>
   </ul>
 </nav>
