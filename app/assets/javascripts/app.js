@@ -124,6 +124,7 @@ angular.module('boardgameRecommender', ['ui.router', 'templates', 'Devise'])
 }])
 
 .controller('RecCtrl', ['$scope', 'Auth', 'games', 'genres', 'mechanics', function($scope, Auth, games, genres, mechanics) {
+  $scope.signedIn = Auth.isAuthenticated;
   $scope.games = games.recommendations
   $scope.genres = genres.genres
   $scope.mechanics = mechanics.mechanics

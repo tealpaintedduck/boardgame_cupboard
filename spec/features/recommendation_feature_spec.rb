@@ -150,4 +150,23 @@ feature 'recommendation page', js: true do
       expect(page).not_to have_css('button.filter')
     end
   end
+
+  scenario 'logged out user does not see option to play', js: true do
+    visit '/'
+    click_button 'Get recommendations'
+    expect(page).not_to have_content "To play"
+  end
+
+  scenario 'logged in user only has options to buy and to play', js: true do
+    visit "/"
+    user = build(:user)
+    sign_up_as(user)
+    visit '/'
+    click_button 'Get recommendations'
+    expect(page).to have_content "To buy"
+    expect(page).to have_content "To play"
+    expect(page).not_to have_content "Select players"
+    expect(page).not_to have_content "Select mechanic"
+    expect(page).not_to have_content "Select genre"
+  end
 end
