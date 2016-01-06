@@ -1,5 +1,13 @@
 <div>
   <div>
+    <button id="buy" ng-class="{'active' : buyIsActive, '' : !buyIsActive }" ng-click="getRecs('buy'); buyIsActive = !buyIsActive; playIsActive = false">
+      To buy
+    </button>
+    <button id="play" ng-class="{'active' : playIsActive, '' : !playIsActive }" ng-click="getRecs('play'); playIsActive = !playIsActive; buyIsActive = false">
+      To play
+    </button>
+  </div>
+  <div>
     <select class="category" id="players" ng-options="player for player in players" ng-model="playerCriteria">
       <option value="" disabled selected>Select players</option>
     </select>

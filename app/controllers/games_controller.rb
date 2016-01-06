@@ -22,9 +22,11 @@ class GamesController < ApplicationController
   end
 
   def recommend
-    if current_user
+    if current_user && params[:type] == "buy"
       @games  = Game.all - current_user.games
       respond_with @games
+    elsif current_user && params[:type] == "play"
+      respond_with current_user.games
     else
       respond_with Game.all
     end

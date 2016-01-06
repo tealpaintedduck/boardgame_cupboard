@@ -45,9 +45,6 @@ angular.module('boardgameRecommender', ['ui.router', 'templates', 'Devise'])
         templateUrl: 'recommendations/_recommendations.html',
         controller: 'RecCtrl',
         resolve: {
-          recommendationsPromise: ['games', function(games) {
-            return games.getRecommendations();
-          }],
           genresPromise: ['genres', function(genres) {
             return genres.getAll();
           }],
@@ -134,6 +131,14 @@ angular.module('boardgameRecommender', ['ui.router', 'templates', 'Devise'])
   $scope.mechanicCriteria = []
   $scope.playerCriteria = 0
   $scope.players = [1,2,3,4,5,6,7,8,9]
+
+  $scope.getRecs = function(selectedType) {
+    return games.getRecommendations(selectedType)
+  }
+
+  $scope.getPlayingRecs = function() {
+
+  }
 
   $scope.toggleCriteria = function(array, item) {
     if (array.indexOf(item) != -1) {
@@ -225,8 +230,8 @@ angular.module('boardgameRecommender', ['ui.router', 'templates', 'Devise'])
     })
   }
 
-  o.getRecommendations = function() {
-    return $http.get('/recommendations.json').success(function(data) {
+  o.getRecommendations = function(selectedType) {
+    return $http.get('/recommendations.json?type=' + selectedType).success(function(data) {
       angular.copy(data, o.recommendations)
     })
   }
