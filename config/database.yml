@@ -81,5 +81,4 @@ test:
 production:
   <<: *default
   database: bgr_production
-  username: bgr
   password: <%= ENV['BGR_DATABASE_PASSWORD'] %>
