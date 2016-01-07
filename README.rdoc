@@ -1,28 +1,26 @@
-== README
+#Boardgame Recommender
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is an Angular/Rails app designed to help you choose boardgames.
 
-Things you may want to cover:
+It uses the Board Game Geek XML API for board game details both when adding games individually, and when importing a user's collection. These games are then added to the app's own database.
+Games to play (already in the user's cupboard) or buy (not in the user's cupboard) are recommended from the app's database based on selected criteria - player number, mechanics and genres.
 
-* Ruby version
+To spin a local version:
 
-* System dependencies
+```
+git clone https://github.com/tealpaintedduck/boardgame_cupboard
+cd boardgame_cupboard
+bower install
+rails s
+```
+and navigate to localhost:3000
 
-* Configuration
+###Tests
 
-* Database creation
+Feature tested with Rspec, using VCR & Webmock for API calls.
 
-* Database initialization
+To run tests:
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+```
+rspec
+```
