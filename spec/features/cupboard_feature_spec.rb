@@ -21,6 +21,7 @@ feature 'cupboard', js: true do
       click_button "Add"
       Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/search?exact=1&search=Carcassonne"))
       Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/boardgame/822"))
+      click_on "more"
       expect(page).not_to have_content "Your cupboard is bare!"
       expect(page).to have_content "Carcassonne"
       expect(page).to have_content "2 - 5 players"

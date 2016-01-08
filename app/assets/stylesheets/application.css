@@ -24,6 +24,7 @@ body {
 
 a {
   text-decoration: none;
+  color: #fff;
 }
 
 button {
@@ -37,9 +38,9 @@ button {
 }
 
 button:hover {
-  background-color: #42313F;
-  color: #fff;
-  border: solid 1px #42313F;
+  background-color: #B6D6B8;
+  color: #000;
+  border: solid 1px #B6D6B8;
 }
 
 button:focus {
@@ -52,8 +53,8 @@ button.filter {
 }
 
 button.active {
-  background-color: #B6D6B8;
-  color: #000;
+  background-color: #42313F;
+  color: #fff;
   border: #ececec 1px solid;
 }
 
@@ -135,6 +136,19 @@ nav li {
 }
 
 .button-container {
-  /*padding-top: 5px;*/
   padding-bottom: 10px;
+}
+
+.info-container {
+  padding-top: 10px;
+}
+
+.info-title {
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.show-detail-button {
+  min-width: 30px;
+  margin-left: 50px;
 }

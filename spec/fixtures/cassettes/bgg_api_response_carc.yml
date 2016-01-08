@@ -1604,4 +1604,51 @@ http_interactions:
         CTwvYm9hcmRnYW1lPgoJPC9ib2FyZGdhbWVzPgo=
     http_version: 
   recorded_at: Thu, 17 Dec 2015 11:32:25 GMT
+- request:
+    method: get
+    uri: http://www.boardgamegeek.com/xmlapi/search?exact=1&search=Carcassonne
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.8.0
+      Date:
+      - Fri, 08 Jan 2016 20:33:58 GMT
+      Content-Type:
+      - text/xml; charset="UTF-8"
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - PHP/5.5.30
+      Set-Cookie:
+      - SessionID=65c4c9f0c0da6a2268c300c613a09afb2c4c5d18; expires=Fri, 08-Jan-2016
+        21:33:57 GMT; Max-Age=3600; path=/; domain=.boardgamegeek.com
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+      Pragma:
+      - no-cache
+      X-Fastcgi-Cache:
+      - MISS
+    body:
+      encoding: ASCII-8BIT
+      string: "<boardgames termsofuse=\"http://boardgamegeek.com/xmlapi/termsofuse\">\n\t\t\t<boardgame
+        objectid=\"822\">\n\t\t\t<name primary=\"true\">Carcassonne</name>\t\t\t\n\t\t\t\t\t\t\t<yearpublished>2000</yearpublished>\n\t\t\t\t\t</boardgame>\n\t</boardgames>\n"
+    http_version: 
+  recorded_at: Fri, 08 Jan 2016 20:34:01 GMT
 recorded_with: VCR 3.0.0

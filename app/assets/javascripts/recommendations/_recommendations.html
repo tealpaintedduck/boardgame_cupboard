@@ -29,17 +29,20 @@
       </button>
     </div>
     <div ng-repeat="game in games | filter:selectedCriteria" class="card">
-      <div>{{ game.title }}</div>
-      <div>Genres:
-        <div ng-repeat="genre in game.genres">
-          {{ genre.name }}
+      <div class="title" ng-click="gameOpened = !gameOpened">{{ game.title }}<button class="show-detail-button" ng-show="!gameOpened">more</button><button class="show-detail-button" ng-show="gameOpened">less</button></div>
+        <div class="game-details" ng-show="gameOpened">
+          <div class="info-title">{{ game.min_players }} - {{ game.max_players }} players</div>
+          <div class="info-container"><span class="info-title">Genres</span>
+            <div ng-repeat="genre in game.genres">
+              {{ genre.name }}
+            </div>
+          </div>
+          <div class="info-container"><span class="info-title">Mechanics</span>
+            <div ng-repeat="mechanic in game.mechanics">
+              {{ mechanic.name }}
+            </div>
+          </div>
         </div>
-      </div>
-      <div>Mechanics:
-        <div ng-repeat="mechanic in game.mechanics">
-          {{ mechanic.name }}
-        </div>
-      </div>
     </div>
   </div>
 </div>
