@@ -3,9 +3,9 @@
 This is an Angular/Rails app designed to help you choose boardgames.
 
 It uses the Board Game Geek XML API for board game details both when adding games individually, and when importing a user's collection. These games are then added to the app's own database.
-Games to play (already in the user's cupboard) or buy (not in the user's cupboard) are recommended from the app's database based on selected criteria - player number, mechanics and genres.
+Games to play (already in the user's 'cupboard') or buy (not in the user's 'cupboard') are recommended from the app's database based on selected criteria - player number, mechanics and genres.
 
-To spin a local version:
+To spin a local version (assuming bower, ruby and rails, postgresql are already installed):
 
 ```
 git clone https://github.com/tealpaintedduck/boardgame_cupboard
