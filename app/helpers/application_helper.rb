@@ -9,9 +9,11 @@ module ApplicationHelper
   end
 
   def get_game_doc(game_title)
-    search_doc = Nokogiri::XML(open("#{ENV["PROXY"]}/xmlapi/search?search=#{game_title}&exact=1"))
+    p "========================"
+    p Rails.application.secrets.bgg_api
+    search_doc = Nokogiri::XML(open("#{Rails.application.secrets.bgg_api}/xmlapi/search?search=#{game_title}&exact=1"))
     game_id = search_doc.xpath("//boardgames/boardgame/@objectid")[0].value
-    Nokogiri::XML(open("#{ENV["PROXY"]}/xmlapi/boardgame/#{game_id}")).xpath("//boardgames/boardgame")
+    Nokogiri::XML(open("#{Rails.application.secrets.bgg_api}/xmlapi/boardgame/#{game_id}")).xpath("//boardgames/boardgame")
   end
 
   def search(doc)
@@ -35,13 +37,13 @@ module ApplicationHelper
   end
 
   def get_collection(user)
-    collection_doc = Nokogiri::XML(open("#{ENV["PROXY"]}/xmlapi/collection/#{user}?own=1"))
+    collection_doc = Nokogiri::XML(open("#{Rails.application.secrets.bgg_api}/xmlapi/collection/#{user}?own=1"))
     game_ids = []
     collection_doc.xpath("//items/item/@objectid").each do | node |
       game_ids << node.value
     end
     game_ids = game_ids.join(",")
-    games_doc = Nokogiri::XML(open("#{ENV["PROXY"]}/xmlapi/boardgame/#{game_ids}?exact=1"))
+    games_doc = Nokogiri::XML(open("#{Rails.application.secrets.bgg_api}/xmlapi/boardgame/#{game_ids}?exact=1"))
     game_nodes = games_doc.xpath('//boardgames/boardgame')
     game_nodes.each do | g |
       min_players, max_players, title, genre_nodes, mechanic_nodes = search(g)
