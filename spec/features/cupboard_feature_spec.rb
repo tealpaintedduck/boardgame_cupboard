@@ -73,7 +73,7 @@ feature 'cupboard', js: true do
 
   scenario "user can import game collection from bgg", js: true do
     VCR.use_cassette 'bgg_api_response_tealpaintedduck', allow_playback_repeats: true do
-      Net::HTTP.get_response(URI("https://www.boardgamegeek.com/xmlapi/collection/tealpaintedduck?own=1"))
+      Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/collection/tealpaintedduck?own=1"))
       Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/boardgame/124708,12333?exact=1"))
       click_button "Look in your cupboard"
       click_button "Import from BGG"
@@ -93,7 +93,7 @@ feature 'cupboard', js: true do
       Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/boardgame/12333"))
       click_button "Add"
       click_button "Import from BGG"
-      Net::HTTP.get_response(URI("https://www.boardgamegeek.com/xmlapi/collection/tealpaintedduck?own=1"))
+      Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/collection/tealpaintedduck?own=1"))
       Net::HTTP.get_response(URI("http://www.boardgamegeek.com/xmlapi/boardgame/124708,12333?exact=1"))
       fill_in "BGG username", with: "tealpaintedduck"
       click_button "Add"

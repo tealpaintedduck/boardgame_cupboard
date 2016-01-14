@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://www.boardgamegeek.com/xmlapi/collection/tealpaintedduck?own=1
+    uri: http://www.boardgamegeek.com/xmlapi/collection/tealpaintedduck?own=1
     body:
       encoding: US-ASCII
       string: ''

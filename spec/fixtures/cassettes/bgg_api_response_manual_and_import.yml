@@ -47,7 +47,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: "<boardgames termsofuse=\"http://boardgamegeek.com/xmlapi/termsofuse\">\n\t\t\t<boardgame
         objectid=\"12333\">\n\t\t\t<name primary=\"true\">Twilight Struggle</name>\t\t\t\n\t\t\t\t\t\t\t<yearpublished>2005</yearpublished>\n\t\t\t\t\t</boardgame>\n\t</boardgames>\n"
-    http_version: 
+    http_version:
   recorded_at: Tue, 15 Dec 2015 15:53:59 GMT
 - request:
     method: get
@@ -529,7 +529,7 @@ http_interactions:
         MSBhbmQgdXAiIG51bXZvdGVzPSI2IiAvPgoJCQkJPC9yZXN1bHRzPgkJCQkJ
         Cgk8L3BvbGw+CgoJCQkKCQkJCgkJCQoJCQkKCQkKCQkJCQoJCTwvYm9hcmRn
         YW1lPgoJPC9ib2FyZGdhbWVzPgo=
-    http_version: 
+    http_version:
   recorded_at: Tue, 15 Dec 2015 15:54:00 GMT
 - request:
     method: get
@@ -576,7 +576,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: "<boardgames termsofuse=\"http://boardgamegeek.com/xmlapi/termsofuse\">\n\t\t\t<boardgame
         objectid=\"12333\">\n\t\t\t<name primary=\"true\">Twilight Struggle</name>\t\t\t\n\t\t\t\t\t\t\t<yearpublished>2005</yearpublished>\n\t\t\t\t\t</boardgame>\n\t</boardgames>\n"
-    http_version: 
+    http_version:
   recorded_at: Tue, 15 Dec 2015 15:54:00 GMT
 - request:
     method: get
@@ -1056,11 +1056,11 @@ http_interactions:
         MSBhbmQgdXAiIG51bXZvdGVzPSI2IiAvPgoJCQkJPC9yZXN1bHRzPgkJCQkJ
         Cgk8L3BvbGw+CgoJCQkKCQkJCgkJCQoJCQkKCQkKCQkJCQoJCTwvYm9hcmRn
         YW1lPgoJPC9ib2FyZGdhbWVzPgo=
-    http_version: 
+    http_version:
   recorded_at: Tue, 15 Dec 2015 15:54:01 GMT
 - request:
     method: get
-    uri: https://www.boardgamegeek.com/xmlapi/collection/tealpaintedduck?own=1
+    uri: http://www.boardgamegeek.com/xmlapi/collection/tealpaintedduck?own=1
     body:
       encoding: US-ASCII
       string: ''
@@ -1122,7 +1122,7 @@ http_interactions:
         value=\"1.61656\" />\n\t\t\t<median value=\"0\" />\t\t</rating>\n\t\t\t</stats>\t<status
         own=\"1\" prevowned=\"0\" fortrade=\"0\" want=\"0\" wanttoplay=\"0\" wanttobuy=\"0\"
         wishlist=\"0\"  preordered=\"0\" lastmodified=\"2015-12-10 17:27:41\" />\n\t<numplays>0</numplays>\t\t\t\t\t\t\t</item>\n\t\t\n</items>"
-    http_version: 
+    http_version:
   recorded_at: Tue, 15 Dec 2015 15:54:01 GMT
 - request:
     method: get
@@ -1925,6 +1925,6 @@ http_interactions:
         bHQgdmFsdWU9IjIxIGFuZCB1cCIgbnVtdm90ZXM9IjYiIC8+CgkJCQk8L3Jl
         c3VsdHM+CQkJCQkKCTwvcG9sbD4KCgkJCQoJCQkKCQkJCgkJCQoJCQoJCQkJ
         CgkJPC9ib2FyZGdhbWU+Cgk8L2JvYXJkZ2FtZXM+Cg==
-    http_version: 
+    http_version:
   recorded_at: Tue, 15 Dec 2015 15:54:02 GMT
 recorded_with: VCR 3.0.0

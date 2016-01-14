@@ -9,8 +9,6 @@ module ApplicationHelper
   end
 
   def get_game_doc(game_title)
-    p "========================"
-    p Rails.application.secrets.bgg_api
     search_doc = Nokogiri::XML(open("#{Rails.application.secrets.bgg_api}/xmlapi/search?search=#{game_title}&exact=1"))
     game_id = search_doc.xpath("//boardgames/boardgame/@objectid")[0].value
     Nokogiri::XML(open("#{Rails.application.secrets.bgg_api}/xmlapi/boardgame/#{game_id}")).xpath("//boardgames/boardgame")
